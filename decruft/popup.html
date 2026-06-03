@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!--
+    Popup viewport: Chrome clips extension popups to the body/html width.
+    No "width=device-width" here — we control width purely via CSS (320px).
+  -->
+  <meta name="viewport" content="initial-scale=1" />
+
+  <!--
+    Content Security Policy (MV3 compliant):
+      • default-src 'self'     — no external resources by default
+      • style-src  'self'      — only same-origin stylesheets
+      • script-src 'self'      — only same-origin scripts
+      • img-src    'self' data: — allow data-URI images (e.g. inline SVG icons)
+    External fonts are intentionally excluded; we use the system font stack.
+  -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;" />
+
+  <title>Decruft</title>
+  <link rel="stylesheet" href="src/popup.css" />
+</head>
+<body>
+  <!--
+    Decruft Popup
+    ─────────────────────────────────────────────────────
+    Mount point for the popup UI. popup.js builds the full
+    DOM inside #popup-root at DOMContentLoaded.
+
+    No inline scripts or styles — CSP strict.
+  -->
+  <div id="popup-root" role="main" aria-label="Decruft extension popup"></div>
+
+  <script src="src/popup.js"></script>
+</body>
+</html>

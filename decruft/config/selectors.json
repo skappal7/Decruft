@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "claude": {
+    "messageContainer": [
+      "div[class*='scrollbar-gutter']:not(nav *)",
+      "div.overflow-y-auto.overflow-x-hidden:not(nav *)",
+      "div[class*='scrollbar-gutter']",
+      "div.overflow-y-auto.overflow-x-hidden",
+      "[data-testid='chat-messages']",
+      ".conversation-content",
+      "main .flex-col"
+    ],
+    "humanMessage": [
+      "[data-testid='user-message']",
+      ".font-user-message",
+      "[data-testid='message-human']",
+      "[data-testid='human-turn']",
+      ".human-turn",
+      "[class*='human']",
+      "[class*='user-message']"
+    ],
+    "assistantMessage": [
+      ".font-claude-message",
+      ".font-claude-response",
+      "[data-testid='message-assistant']",
+      "[data-testid='ai-turn']",
+      ".assistant-turn",
+      "[class*='assistant']",
+      "[class*='claude-message']"
+    ],
+    "newChatButton": [
+      "[data-testid='new-chat-button']",
+      "a[href='/new']",
+      "button[aria-label*='New chat']"
+    ],
+    "inputBox": [
+      "[data-testid='chat-input']",
+      ".ProseMirror",
+      "div[contenteditable='true']"
+    ],
+    "sendButton": [
+      "[data-testid='send-button']",
+      "button[aria-label*='Send']",
+      "button[type='submit']"
+    ]
+  }
+}

@@ -1,0 +1,453 @@
+/**
+ * Decruft — Popup Stylesheet (src/popup.css)
+ * ════════════════════════════════════════════
+ * Full design for the 320px extension popup.
+ *
+ * Brand palette:
+ *   bg      #1a1a2e   accent  #f97316   text    #e5e7eb
+ *   success #22c55e   warning #eab308   danger  #ef4444
+ *   muted   #9ca3af
+ */
+
+/* ── CSS Custom Properties ──────────────────────────────────────────────────── */
+:root {
+  --bg:      #1a1a2e;
+  --surface: #1e1e36;
+  --border:  rgba(249, 115, 22, 0.2);
+  --accent:  #f97316;
+  --text:    #e5e7eb;
+  --muted:   #9ca3af;
+  --success: #22c55e;
+  --warning: #eab308;
+  --danger:  #ef4444;
+  --radius:  12px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Root dimensions ────────────────────────────────────────────────────────── */
+html, body {
+  width: 320px;
+  min-height: 400px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#popup-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.dp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(249,115,22,0.06) 0%, transparent 100%);
+}
+
+.dp-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dp-logo-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.dp-logo-text {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.dp-version {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   LIVE STATS BANNER  (current-tab staleness)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.dp-live {
+  margin: 14px 14px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Big ring meter */
+.dp-ring-wrap {
+  flex-shrink: 0;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.dp-ring {
+  width: 60px;
+  height: 60px;
+  transform: rotate(-90deg);
+}
+
+.dp-ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 4;
+}
+
+.dp-ring-fill {
+  fill: none;
+  stroke: var(--success);   /* overridden by JS */
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* circumference ≈ 2π × 24 ≈ 150.8 — set in JS */
+  stroke-dasharray: 150.8;
+  stroke-dashoffset: 150.8; /* 0% initially */
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.4s ease;
+}
+
+/* Percentage text inside ring */
+.dp-ring-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Right side of live banner */
+.dp-live-info {
+  flex: 1;
+}
+
+.dp-live-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.dp-live-tokens {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.dp-live-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Status pill inside live banner */
+.dp-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  margin-top: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dp-status-pill.yellow {
+  background: rgba(234,179,8,0.12);
+  color: var(--warning);
+  border-color: rgba(234,179,8,0.25);
+}
+
+.dp-status-pill.orange {
+  background: rgba(249,115,22,0.12);
+  color: var(--accent);
+  border-color: rgba(249,115,22,0.25);
+}
+
+.dp-status-pill.red {
+  background: rgba(239,68,68,0.12);
+  color: var(--danger);
+  border-color: rgba(239,68,68,0.25);
+}
+
+.dp-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* "Not on Claude" notice */
+.dp-no-tab {
+  display: none; /* Hidden by default to completely avoid inline style CSP triggers */
+  margin: 14px 14px 0;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.dp-no-tab span {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   STATS GRID  (lifetime numbers)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.dp-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px 14px 0;
+}
+
+.dp-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dp-stat-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.dp-stat-icon {
+  font-size: 16px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.dp-stat-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.dp-stat-val.success { color: var(--success); }
+.dp-stat-val.muted   { color: var(--muted);   font-size: 14px; font-weight: 600; }
+
+.dp-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SETTINGS SECTION
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.dp-settings {
+  margin: 14px 14px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.dp-settings-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dp-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dp-setting-row:last-child {
+  border-bottom: none;
+}
+
+.dp-setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dp-setting-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.dp-setting-desc {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── Toggle switch ────────────────────────────────────────────────────────── */
+.dp-toggle {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.dp-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.dp-toggle-track {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.dp-toggle input:checked + .dp-toggle-track {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.dp-toggle-track::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dp-toggle input:checked + .dp-toggle-track::after {
+  left: 19px;
+}
+
+.dp-toggle input:focus-visible + .dp-toggle-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.dp-footer {
+  margin-top: auto;
+  padding: 14px 18px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dp-footer-tagline {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.dp-footer-link {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.dp-footer-link:hover { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   LOADING SKELETON
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes dp-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.dp-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.09) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: dp-shimmer 1.6s ease-in-out infinite;
+  border-radius: 6px;
+  color: transparent !important;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ENTRANCE ANIMATION
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes dp-fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+#popup-root {
+  animation: dp-fadein 0.3s ease both;
+}
