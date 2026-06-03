@@ -36,7 +36,7 @@ Yes! You can load and run the extension directly from the files in this reposito
 ### 1. Download or Clone the Repository
 Clone the repository to your local machine:
 ```bash
-git clone https://github.com/Data-Dojo-AI-Studio/decruft.git
+git clone https://github.com/skappal7/decruft.git
 ```
 *(Make sure the folder contains `manifest.json`, `src/`, `config/`, and `icons/`)*
 
